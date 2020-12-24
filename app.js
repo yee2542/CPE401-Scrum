@@ -24,4 +24,4 @@ const server = http.createServer((req, res) => {
   res.end();
 });
 
-server.listen(80, () => console.log("server started"));
+server.listen(process.env.PORT || 80, () => console.log("server started"));
