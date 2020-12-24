@@ -1,11 +1,5 @@
 const who = ["narisy", "chonrady", "korbby"];
 
-// const today = new Date("2021-01-12");
-const today = new Date();
-const offset = 86400000;
-
-const day = new Date(today.valueOf() - offset);
-
 function getWeekNumber(d) {
   d = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()));
   d.setUTCDate(d.getUTCDate() + 4 - (d.getUTCDay() || 7));
@@ -14,13 +8,20 @@ function getWeekNumber(d) {
   return weekNo;
 }
 
-// console.log("Today is", who[scrum], "tadaaaa");
+function findIndexScrum() {
+  const today = new Date();
+  const offset = 86400000;
+
+  const day = new Date(today.valueOf() - offset);
+
+  const nWeek = getWeekNumber(day);
+  const scrum = nWeek % 3;
+  return scrum;
+}
 
 const http = require("http");
 const server = http.createServer((req, res) => {
-  const nWeek = getWeekNumber(day);
-  const scrum = nWeek % 3;
-  res.write("Today is " + who[scrum] + " " + "tadaaaa");
+  res.write("Today is " + who[findIndexScrum()] + " " + "tadaaaa");
   res.end();
 });
 
