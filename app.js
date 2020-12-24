@@ -2,7 +2,7 @@ const who = ["narisy", "chonrady", "korbby"];
 
 // const today = new Date("2021-01-12");
 const today = new Date();
-const offset = 86400000 ;
+const offset = 86400000;
 
 const day = new Date(today.valueOf() - offset);
 
@@ -13,6 +13,15 @@ function getWeekNumber(d) {
   const weekNo = Math.ceil(((d - yearStart) / 86400000 + 1) / 7);
   return weekNo;
 }
-const nWeek = getWeekNumber(day);
-const scrum = nWeek % 3;
-console.log('Today is' ,who[scrum], 'tadaaaa');
+
+// console.log("Today is", who[scrum], "tadaaaa");
+
+const http = require("http");
+const server = http.createServer((req, res) => {
+  const nWeek = getWeekNumber(day);
+  const scrum = nWeek % 3;
+  res.write("Today is " + who[scrum] + " " + "tadaaaa");
+  res.end();
+});
+
+server.listen(80, () => console.log("server started"));
